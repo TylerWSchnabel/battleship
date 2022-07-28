@@ -1,10 +1,5 @@
 import { Ship } from "./createShip.js";
 
-it('test Ship', () => {
-    const destoryer = Ship(3);
-    expect(destoryer.getHealth()).toBe(3);
-})
-
 it('test Ship tiles', ()=>{
     const destoryer = Ship(3);
     expect(destoryer.tiles.length).toBe(3);

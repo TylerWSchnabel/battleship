@@ -1,8 +1,6 @@
 
 
 export const Ship = (size) => {
-    const getHealth = () => size;
-
     const tiles = [...Array(size).keys()]
 
     const hit = (position) => {
@@ -19,5 +17,5 @@ export const Ship = (size) => {
         return sunk === true ? true : false;
     }
 
-    return {getHealth, tiles, hit, isSunk};
+    return {tiles, hit, isSunk};
 };
