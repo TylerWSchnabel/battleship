@@ -21,8 +21,8 @@ it('test areAllSunk', () => {
 })
 
 it('place ship vertical', () => {
-    const destoryer = Ship(3);
-    Gameboard.placeShip(0,0, destoryer)
+    const destroyer = Ship(3,"destroyer");
+    Gameboard.placeShip(0,0, destroyer)
     expect(Gameboard.board).toStrictEqual(
         [[0,"empty","empty","empty","empty","empty","empty","empty","empty","empty"],
         [1,"empty","empty","empty","empty","empty","empty","empty","empty","empty"],
@@ -36,11 +36,15 @@ it('place ship vertical', () => {
         ["empty","empty","empty","empty","empty","empty","empty","empty","empty","empty"]])
 })
 
+it('typeof  ==== object', () => {
+    expect(typeof Gameboard.board[0][0]).toBe("number")
+})
+
 it('place ship horizonatal', () => {
-    const destoryer = Ship(3);
+    const destroyer2 = Ship(3, "destroyer2");
     Gameboard.shipDirection();
-    Gameboard.placeShip(0,3, destoryer);
-    expect(Gameboard.board).toEqual(
+    Gameboard.placeShip(0,3, destroyer2);
+    expect(Gameboard.board).toStrictEqual(
         [[0,"empty","empty",0,1,2,"empty","empty","empty","empty"],
         [1,"empty","empty","empty","empty","empty","empty","empty","empty","empty"],
         [2,"empty","empty","empty","empty","empty","empty","empty","empty","empty"],
@@ -54,8 +58,13 @@ it('place ship horizonatal', () => {
     ])
 })
 
-it.skip('Place ship - spot taken', () => {
-    expect(Gameboard.placeShip).toBe()
+it('test areAllSunk to be false', () => {
+    expect(Gameboard.areAllSunk()).toBe(false);
+})
+
+it('Spot taken - false', () => {
+    const carrier = Ship(5, "carrier")
+    expect(Gameboard.spotAvail(0,1,carrier.tiles.length)).toBe(false)
 })
 
 it('ship hit vertical', () => {
@@ -84,5 +93,15 @@ it('areAllSunk = True after sinking ships', () => {
     Gameboard.receiveAttack(0,3);
     Gameboard.receiveAttack(0,5);
     expect(Gameboard.areAllSunk()).toBe(true);
+})
+
+it('cruiser isSunk - true', () => {
+    const cruiser = Ship(2, "cruiser");
+    Gameboard.placeShip(8,0,cruiser);
+    Gameboard.receiveAttack(8,0);
+    cruiser.hit(0);
+    Gameboard.receiveAttack(8,1);
+    cruiser.hit(1);
+    expect(cruiser.isSunk()).toBe(true);
 })
 

@@ -1,3 +1,4 @@
+import { parse } from "@babel/core";
 import { Ship } from "./createShip";
 
 export const Gameboard = (() => {
@@ -15,19 +16,22 @@ export const Gameboard = (() => {
 
     const spotAvail = (x,y,length) => {
         let open = true;
-        for (let i=0; i<length; i++){
-            if(board[x][y] !== "empty"){
-                open = false;
-                if (direction === "horizontal"){
-                    y++;
-                } else if (direction === "vertical"){
-                    x++;
+        if (direction === "horizontal"){
+            for (let i=y; i<length; i++){
+                if (board[x][i]!=="empty" || i>9){
+                    open = false
                 }
             }
-            
+        } else if (direction === "vertical"){
+            for (let i=x; i<length; i++){
+                if (board[i][y]!=="empty" || i>9){
+                    open = false
+                }
+            }
         }
         return open;
     }
+        
 
     const shipDirection = () => {
         if (direction === "horizontal"){
@@ -38,9 +42,9 @@ export const Gameboard = (() => {
     }
 
     const placeShip = (x,y,ship) => {
-        if (spotAvail(x,y,ship.length) === true){
+        if (spotAvail(x,y,ship.tiles.length) === true){
             for (let i=0; i<ship.tiles.length; i++){
-                board[x][y] = ship.tiles[i];
+                board[x].splice(y, 1, ship.tiles[i])
                 if (direction === "horizontal"){
                     y++;
                 } else if (direction === "vertical"){
@@ -54,10 +58,11 @@ export const Gameboard = (() => {
 
     const receiveAttack = (x,y) => {
         if (board[x][y] !== "empty"){
+            //board[x][y].ship.hit(board[x][y].i);
             board[x][y] = "hit";
             return "hit";
         } else {
-            board[x][y] = "hit";
+            board[x][y] = "miss";
             return "miss";
         }
     };
@@ -65,9 +70,9 @@ export const Gameboard = (() => {
     const areAllSunk = () => {
         for (let x=0; x<board.length; x++){
             return board[x].every(element => {
-                return typeof element === 'string';
+                return (element === 'empty' || element==="hit" || element === "miss");
               });
         }
     }
-    return {init, placeShip, receiveAttack, shipDirection, board, areAllSunk}
+    return {init, placeShip, receiveAttack, shipDirection, board, areAllSunk,spotAvail}
 })();

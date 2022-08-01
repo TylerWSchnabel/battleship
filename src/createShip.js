@@ -1,6 +1,7 @@
 
 
-export const Ship = (size) => {
+export const Ship = (size, name) => {
+    const getName = () => name;
     const tiles = [...Array(size).keys()]
 
     const hit = (position) => {
@@ -17,5 +18,5 @@ export const Ship = (size) => {
         return sunk === true ? true : false;
     }
 
-    return {tiles, hit, isSunk};
+    return {tiles, hit, isSunk, getName};
 };
