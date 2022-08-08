@@ -1,0 +1,33 @@
+#gameArea{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    
+}
+
+.gameboards {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    width: 400px;
+    border: 2px solid black;
+    justify-self: center;
+}
+.row {
+    display: grid;
+    grid-template-rows: repeat(10, 40px);
+}
+.userSquare, .compSquare {
+    border: 2px solid black;
+}
+
+.shipSquare {
+    background-color: rgb(251, 160, 160);
+}
+.hit {
+    background-color: red;
+    border: 2px solid black;
+}
+.miss {
+    background-color: blue;
+    border: 2px solid black;
+}

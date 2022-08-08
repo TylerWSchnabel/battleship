@@ -1,4 +1,4 @@
-import { last } from "lodash";
+
 import { Gameboard } from "./createGameboard";
 
 export const Player = (name, human) => {
@@ -10,10 +10,11 @@ export const Player = (name, human) => {
     const attack = (x,y) => {
         return Gameboard.receiveAttack(x,y);
     }
+    
     let lastTurn = [];
     let lastResult = '';
     const compAttack = () => {
-        let attackExecuted = true;
+        let compTurn = true;
         while (attackExecuted === true){
             let x= Math.floor(Math.random() * 10);
             let y= Math.floor(Math.random() * 10);
@@ -24,7 +25,7 @@ export const Player = (name, human) => {
                     lastTurn[0] = x;
                     lastTurn[1] = y;
                 }
-                attackExecuted = false;
+                compTurn = false;
                 return attack(x,y);
             }
         }

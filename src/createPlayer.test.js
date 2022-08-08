@@ -16,15 +16,15 @@ it('isHuman - false',() => {
     expect(hal.isHuman()).toBe(false)
 })
 
-it("player attack - hit", () => {
-    Gameboard.init();
-    const destroryer = Ship(3);
-    Gameboard.placeShip(0,0,destroryer)
+it.skip("player attack - hit", () => {
+    const destroryer = Ship(3, 'destroryer');
+    const tylerBoard = Gameboard('tyler', true)
+    tylerBoard.placeShip(0,0,destroryer)
     const tyler = Player("Tyler");
     expect(tyler.attack(0,0)).toBe("hit")
 })
 
-it('player attack - miss', ( ) => {
+it.skip('player attack - miss', ( ) => {
     const tyler = Player("Tyler");
     expect(tyler.attack(5,5)).toBe('miss')
 })
