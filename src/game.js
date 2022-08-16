@@ -16,20 +16,27 @@ document.body.appendChild(gameArea);
 compBoard.displayBoard();
 userBoard.displayBoard();
 
-
+const compFleet = [];
 const userCarrier = Ship(5, 'userCarrier');
 const compCarrier =Ship(5, 'compCarrier');
 const compDestroyer = Ship (2, 'compDestroyer');
 const compBattleship = Ship(4, 'compBattleship');
 const compSubmarine = Ship(3, 'compSubmarine');
 const compCruiser =Ship(3, 'compCruiser');
-compBoard.compPlaceShip(compBattleship);
-compBoard.compPlaceShip(compDestroyer);
-compBoard.compPlaceShip(compCarrier);
-compBoard.compPlaceShip(compSubmarine);
-compBoard.compPlaceShip(compCruiser);
+compFleet.push(compBattleship);
+compFleet.push(compDestroyer);
+compFleet.push(compCarrier);
+compFleet.push(compSubmarine);
+compFleet.push(compCruiser);
+function setCompBoard(arr){
+    for (let i=0; i<arr.length; i++){
+        compBoard.compPlaceShip(arr[i]);
+    }
+}
+setCompBoard(compFleet);
 console.log(compBoard.direction);
 userBoard.placeShip(3,4, userCarrier);
+console.log('compBoard');
 console.log(compBoard.board);
 //userBoard.gameOn();
 }

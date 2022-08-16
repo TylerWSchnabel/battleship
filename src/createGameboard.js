@@ -22,21 +22,23 @@ export const Gameboard = (player, user) => {
     }
 
     const spotAvail = (x,y,length) => {
-        let open = true;
-        if (direction === "horizontal"){
+        if (direction === "vertical"){
             for (let i=y; i<length; i++){
-                if (board[x][i]!=="empty" || i>9 ){
-                    open = false
+                if (board[x][i] === "empty" && i<9 ){
+                    return true;
+                }else {
+                    return false;
                 }
             }
-        } else if (direction === "vertical"){
+        } else if (direction === "horizontal"){
             for (let i=x; i<length; i++){
-                if (board[i][y]!=="empty" || y>9){
-                    open = false
+                if (board[i][y] === "empty" && i<9){
+                    return true;
+                } else {
+                    return false;
                 }
             }
         }
-        return open;
     }
         
 
@@ -58,23 +60,24 @@ export const Gameboard = (player, user) => {
                         y++;
                     }
                 }
-            } /*else if (user === true){
-                alert("Spot is taken");
-            }*/
+                return true;
+            } 
         
     }
 
     const compPlaceShip = (ship) => {
-        let x= Math.floor(Math.random() * 10);
-        let y= Math.floor(Math.random() * 10);
         let shipDocked = true;
-        while (shipDocked){
-            let d = Math.floor(Math.random() * 1);
+        while (shipDocked === true){
+            let x= Math.floor(Math.random() * 10);
+            let y= Math.floor(Math.random() * 10);
+            let d = Math.floor(Math.random() * 2);
             if (d === 1){
                 shipDirection();
             }
-            placeShip(x,y,ship);
-            shipDocked = false;
+            if (spotAvail(x,y,ship.tiles.length) === true){
+                placeShip(x,y,ship);
+                shipDocked = false;
+            }
         }
     }
 
@@ -86,10 +89,10 @@ export const Gameboard = (player, user) => {
             console.log(board[x][y].name.tiles);
             spot.setAttribute('class', 'hit');
             if (board[x][y].name.isSunk() === true){
-                if (areAllSunk()=== true){
-                    alert("Game Over! All "+player+"'s ships sank");
-                }else {
+                if (areAllSunk()=== false){
                     alert(board[x][y].name.getName() + " is Sunk");
+                }else if(areAllSunk()===true) {
+                    alert("Game Over! All "+player+"'s ships sank");
                 }
             };
             board[x][y] = "hit";
@@ -104,9 +107,11 @@ export const Gameboard = (player, user) => {
 
     const areAllSunk = () => {
         for (let x=0; x<board.length; x++){
-            return board[x].every(element => {
-                return (element === 'empty' || element=== "hit" || element === "miss");
-              });
+            for(let y=0; y<board[x].length; y++){
+                if(board[x][y] === 'empty' || board[x][y] === 'hit'||board[x][y] === 'miss'){
+                    return true;
+                }
+            }
         }
     }
 

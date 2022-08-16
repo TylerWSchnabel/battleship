@@ -73,12 +73,12 @@ it('test areAllSunk to be false', () => {
     expect(tylerBoard.areAllSunk()).toBe(false);
 })
 
-it('Spot taken - false', () => {
+it('Spot avail - false', () => {
     const tylerBoard = Gameboard('tyler', true)
     const destroyer = Ship(3,"destroyer");
     tylerBoard.placeShip(0,0, destroyer)
     const carrier = Ship(5, "carrier")
-    expect(tylerBoard.spotAvail(0,1,carrier.tiles.length)).toBe(false)
+    expect(tylerBoard.spotAvail(0,0,carrier.tiles.length)).toBe(false)
 })
 
 it('ship hit vertical', () => {
