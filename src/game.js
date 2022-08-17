@@ -15,9 +15,11 @@ document.body.appendChild(gameArea);
 
 compBoard.displayBoard();
 userBoard.displayBoard();
+console.log(compBoard.board);
 
 const compFleet = [];
 const userCarrier = Ship(5, 'userCarrier');
+userBoard.placeShip(3,4,userCarrier);
 const compCarrier =Ship(5, 'compCarrier');
 const compDestroyer = Ship (2, 'compDestroyer');
 const compBattleship = Ship(4, 'compBattleship');
@@ -33,9 +35,11 @@ function setCompBoard(arr){
         compBoard.compPlaceShip(arr[i]);
     }
 }
+
 setCompBoard(compFleet);
-console.log(compBoard.direction);
-userBoard.placeShip(3,4, userCarrier);
+
+console.log(typeof userBoard.board[3][4]);
+console.log(typeof userBoard.board[3][5]);
 console.log('compBoard');
 console.log(compBoard.board);
 //userBoard.gameOn();

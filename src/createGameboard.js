@@ -3,7 +3,6 @@ import { Ship } from "./createShip";
 
 export const Gameboard = (player, user) => {
     let game = false;
-    let allSunk = false;
     let board = [];
     let direction = "vertical";
     const init = (() => {
@@ -22,23 +21,33 @@ export const Gameboard = (player, user) => {
     }
 
     const spotAvail = (x,y,length) => {
+        let open = true
         if (direction === "vertical"){
-            for (let i=y; i<length; i++){
-                if (board[x][i] === "empty" && i<9 ){
-                    return true;
-                }else {
-                    return false;
+            if(y+length>9){
+                open = false;
+                return open;
+            }else {
+                for (let i=y; i<length; i++){
+                    if (typeof board[x][i] !== "string"){
+                        open = false;
+                        return open;
+                    }
                 }
             }
         } else if (direction === "horizontal"){
-            for (let i=x; i<length; i++){
-                if (board[i][y] === "empty" && i<9){
-                    return true;
-                } else {
-                    return false;
+            if(x+length>9){
+                open = false;
+                return open;
+            }else {
+                for (let i=x; i<length; i++){
+                    if (typeof board[i][y] !== "string"){
+                        open = false;
+                        return open;
+                    }
                 }
             }
         }
+        return open;
     }
         
 
@@ -54,12 +63,14 @@ export const Gameboard = (player, user) => {
             if (spotAvail(x,y,ship.tiles.length) === true){
                 for (let i=0; i<ship.tiles.length; i++){
                     board[x].splice(y, 1, {name: ship , spot: i})
+                    
                     if (direction === "horizontal"){
                         x++;
                     } else if (direction === "vertical"){
                         y++;
                     }
                 }
+                console.log(board);
                 return true;
             } 
         
@@ -75,6 +86,7 @@ export const Gameboard = (player, user) => {
                 shipDirection();
             }
             if (spotAvail(x,y,ship.tiles.length) === true){
+                console.log(x+' '+y+ ' '+ direction +" "+ship.getName());
                 placeShip(x,y,ship);
                 shipDocked = false;
             }
@@ -89,13 +101,12 @@ export const Gameboard = (player, user) => {
             console.log(board[x][y].name.tiles);
             spot.setAttribute('class', 'hit');
             if (board[x][y].name.isSunk() === true){
-                if (areAllSunk()=== false){
-                    alert(board[x][y].name.getName() + " is Sunk");
-                }else if(areAllSunk()===true) {
+                alert(board[x][y].name.getName() + " is Sunk");
+            }
+            board[x][y] = "hit";
+            if(areAllSunk() === true) {
                     alert("Game Over! All "+player+"'s ships sank");
                 }
-            };
-            board[x][y] = "hit";
             return "hit";
         } else {
             board[x][y] = "miss";
@@ -106,13 +117,16 @@ export const Gameboard = (player, user) => {
     };
 
     const areAllSunk = () => {
+        let sunk = true;
         for (let x=0; x<board.length; x++){
             for(let y=0; y<board[x].length; y++){
-                if(board[x][y] === 'empty' || board[x][y] === 'hit'||board[x][y] === 'miss'){
-                    return true;
+                if(typeof board[x][y] !== 'string'){
+                    sunk = false;
+                    return sunk
                 }
             }
         }
+        return sunk;
     }
 
     const displayBoard = () => {
