@@ -16,7 +16,9 @@ export const Gameboard = (player, user) => {
 
     const gameOn=()=>{
         if (game === false){
-            game =true;
+            game = true;
+        } else if (game === true){
+            game = false;
         }
     }
 
@@ -28,7 +30,7 @@ export const Gameboard = (player, user) => {
                 return open;
             }else {
                 for (let i=y; i<length; i++){
-                    if (typeof board[x][i] !== "string"){
+                    if (board[x][i] !== "empty"){
                         open = false;
                         return open;
                     }
@@ -40,7 +42,7 @@ export const Gameboard = (player, user) => {
                 return open;
             }else {
                 for (let i=x; i<length; i++){
-                    if (typeof board[i][y] !== "string"){
+                    if (board[i][y] !== "empty"){
                         open = false;
                         return open;
                     }
@@ -72,7 +74,9 @@ export const Gameboard = (player, user) => {
                 }
                 console.log(board);
                 return true;
-            } 
+            } else {
+                console.log('spot taken '+ x+' '+y+' '+ ship);
+            }
         
     }
 
@@ -90,6 +94,12 @@ export const Gameboard = (player, user) => {
                 placeShip(x,y,ship);
                 shipDocked = false;
             }
+        }
+    }
+
+    const setCompBoard = (arr) => {
+        for (let i=0; i<arr.length; i++){
+            compPlaceShip(arr[i]);
         }
     }
 
@@ -141,10 +151,14 @@ export const Gameboard = (player, user) => {
                 let square = document.createElement('div');
                 square.setAttribute('class', player + 'Square');
                 square.setAttribute('id', player + i+j);
-                square.addEventListener('click', function attack() {
-                    receiveAttack(i,j);
-                    square.removeEventListener('click', attack);
-                });
+                if (user === false){
+                    square.addEventListener('click', function attack() {
+                        receiveAttack(i,j);
+                        //human.turn = false;
+                        square.removeEventListener('click', attack);
+
+                    });
+                };
                 row.appendChild(square);
             }
             boardArea.appendChild(row);
@@ -152,5 +166,5 @@ export const Gameboard = (player, user) => {
             gameArea.appendChild(boardArea);
         }
     }
-    return {init, placeShip, receiveAttack, shipDirection, board, areAllSunk,spotAvail, displayBoard, gameOn, direction,compPlaceShip}
+    return {init, placeShip, receiveAttack, shipDirection, board, areAllSunk,spotAvail, displayBoard, gameOn, direction,compPlaceShip, setCompBoard}
 };

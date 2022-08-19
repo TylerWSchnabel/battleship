@@ -26,9 +26,10 @@ it('test areAllSunk to be false', () => {
 it('Spot avail - false', () => {
     const tylerBoard = Gameboard('tyler', true)
     const destroyer = Ship(3,"destroyer");
-    tylerBoard.placeShip(0,0, destroyer)
+    tylerBoard.placeShip(1,0, destroyer)
     const carrier = Ship(5, "carrier")
-    expect(tylerBoard.spotAvail(0,0,carrier.tiles.length)).toBe(false)
+    tylerBoard.shipDirection();
+    expect(tylerBoard.spotAvail(0,2,carrier.tiles.length)).toBe(false)
 })
 
 it('Spot avail - false', () => {

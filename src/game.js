@@ -4,43 +4,49 @@ import { Ship } from "./createShip";
 
 export const Game = () => {
 
-const userBoard = Gameboard('user', true);
-const compBoard = Gameboard('comp', false);
+    const human = Player('Tyler', true);
+    const comp = Player('Computer', false);
+    
+    let gameArea = document.createElement('div');
+    gameArea.setAttribute('id', 'gameArea');
+    document.body.appendChild(gameArea);
 
+    comp.board.displayBoard();
+    human.board.displayBoard();
+    human.createFleet();
+    comp.createFleet();
 
+    human.board.placeShip(3,4, human.fleet[0]);
+    human.board.shipDirection();
+    human.board.placeShip(7,4,human.fleet[1]);
+    human.board.shipDirection();
+    human.board.placeShip(0,2,human.fleet[2]);
+    human.board.placeShip(9,0, human.fleet[3]);
+    human.board.shipDirection();
+    human.board.placeShip(4,9, human.fleet[4]);
 
-let gameArea = document.createElement('div');
-gameArea.setAttribute('id', 'gameArea');
-document.body.appendChild(gameArea);
+    comp.board.setCompBoard(comp.fleet);
 
-compBoard.displayBoard();
-userBoard.displayBoard();
-console.log(compBoard.board);
+    console.log('compBoard');
+    console.log(comp.board.board);
+    //human.gameOn();
+    human.turn = true;
+    let game = true;
 
-const compFleet = [];
-const userCarrier = Ship(5, 'userCarrier');
-userBoard.placeShip(3,4,userCarrier);
-const compCarrier =Ship(5, 'compCarrier');
-const compDestroyer = Ship (2, 'compDestroyer');
-const compBattleship = Ship(4, 'compBattleship');
-const compSubmarine = Ship(3, 'compSubmarine');
-const compCruiser =Ship(3, 'compCruiser');
-compFleet.push(compBattleship);
-compFleet.push(compDestroyer);
-compFleet.push(compCarrier);
-compFleet.push(compSubmarine);
-compFleet.push(compCruiser);
-function setCompBoard(arr){
-    for (let i=0; i<arr.length; i++){
-        compBoard.compPlaceShip(arr[i]);
+    const takeTurns = ()=>{
+        if (turn === human){
+            turn = comp;
+        } else if (turn === comp){
+            turn = human;
+        }
     }
-}
 
-setCompBoard(compFleet);
+    const playGame = () => {
+        if (comp.board.receiveAttack){
+            comp.compAttack(human.board);
+        }
+    }
 
-console.log(typeof userBoard.board[3][4]);
-console.log(typeof userBoard.board[3][5]);
-console.log('compBoard');
-console.log(compBoard.board);
-//userBoard.gameOn();
+    //comp.compAttack(human.board);
+    playGame();
 }
