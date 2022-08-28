@@ -1,3 +1,13 @@
+.titleBox {
+    display: grid;
+    width: 100%;
+}
+
+.titleText {
+    align-self: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 #gameArea{
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -30,4 +40,40 @@
 .miss {
     background-color: blue;
     border: 2px solid black;
+}
+
+#playAgainBox {
+    position: absolute;
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    width: 33%;
+    left: 33%;
+    height: 33%;
+    top:33%;
+    background-color: aquamarine;
+    color: black;
+    border: 2px solid black;
+    align-content: center;
+}
+
+#playAgainText {
+    justify-self: center;
+    align-self: center;
+}
+
+#playAgainButtonBox {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-self: center;
+    align-self: center;
+    align-content: center;
+    gap: 10px;
+}
+
+.playAgainButton {
+    width: 4rem;
+    background-color: black;
+    color: white;
+    border-radius: 8px;
+    border: none;
 }

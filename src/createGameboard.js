@@ -2,7 +2,7 @@
 import { Ship } from "./createShip";
 
 export const Gameboard = (player, user) => {
-    let game = false;
+    let gameOn = false;
     let board = [];
     let direction = "vertical";
     const init = (() => {
@@ -12,26 +12,21 @@ export const Gameboard = (player, user) => {
                 board[x].push('empty');
             }
         }
+        gameOn = true;
     })();
-
-    const gameOn=()=>{
-        if (game === false){
-            game = true;
-        } else if (game === true){
-            game = false;
-        }
-    }
 
     const spotAvail = (x,y,length) => {
         let open = true
         if (direction === "vertical"){
             if(y+length>9){
                 open = false;
+                console.log(x+ " " + y +" too wide");
                 return open;
             }else {
                 for (let i=y; i<length; i++){
                     if (board[x][i] !== "empty"){
                         open = false;
+                        console.log(x +' '+ y +" spot taken");
                         return open;
                     }
                 }
@@ -39,11 +34,13 @@ export const Gameboard = (player, user) => {
         } else if (direction === "horizontal"){
             if(x+length>9){
                 open = false;
+                console.log(x+ " " +y +" too long");
                 return open;
             }else {
                 for (let i=x; i<length; i++){
                     if (board[i][y] !== "empty"){
                         open = false;
+                        console.log(x + " " + y +" spot taken");
                         return open;
                     }
                 }
@@ -72,12 +69,8 @@ export const Gameboard = (player, user) => {
                         y++;
                     }
                 }
-                console.log(board);
                 return true;
-            } else {
-                console.log('spot taken '+ x+' '+y+' '+ ship);
             }
-        
     }
 
     const compPlaceShip = (ship) => {
@@ -105,18 +98,21 @@ export const Gameboard = (player, user) => {
 
     const receiveAttack = (x,y) => {
         let spot = document.getElementById(player + x + y);
-        if (board[x][y] !== "empty"){
+        if (typeof board[x][y] === "object"){
             spot.setAttribute('class', 'hit');
             board[x][y].name.hit(board[x][y].spot);
             console.log(board[x][y].name.tiles);
             spot.setAttribute('class', 'hit');
-            if (board[x][y].name.isSunk() === true){
-                alert(board[x][y].name.getName() + " is Sunk");
-            }
+            let shipHit = board[x][y].name;
             board[x][y] = "hit";
             if(areAllSunk() === true) {
-                    alert("Game Over! All "+player+"'s ships sank");
-                }
+                alert("Game Over! All "+player+"'s ships sank");
+                gameOn = false;
+            }else if (shipHit.isSunk() === true){
+                alert(shipHit.getName() + " is Sunk");
+            }
+            
+            
             return "hit";
         } else {
             board[x][y] = "miss";
@@ -139,7 +135,7 @@ export const Gameboard = (player, user) => {
         return sunk;
     }
 
-    const displayBoard = () => {
+    /*const displayBoard = () => {
         let boardArea = document.createElement('div');
         boardArea.setAttribute('class', 'gameboards');
         boardArea.setAttribute('id', player + 'Board');
@@ -153,10 +149,11 @@ export const Gameboard = (player, user) => {
                 square.setAttribute('id', player + i+j);
                 if (user === false){
                     square.addEventListener('click', function attack() {
-                        receiveAttack(i,j);
-                        //human.turn = false;
-                        square.removeEventListener('click', attack);
+                        //while (gameOn === true){
+                            receiveAttack(i,j);
+                            square.removeEventListener('click', attack);
 
+                        //}
                     });
                 };
                 row.appendChild(square);
@@ -165,6 +162,6 @@ export const Gameboard = (player, user) => {
             let gameArea = document.getElementById('gameArea');
             gameArea.appendChild(boardArea);
         }
-    }
-    return {init, placeShip, receiveAttack, shipDirection, board, areAllSunk,spotAvail, displayBoard, gameOn, direction,compPlaceShip, setCompBoard}
+    }*/
+    return {init, placeShip, receiveAttack, shipDirection, board, areAllSunk,spotAvail, /*displayBoard, */gameOn, direction,compPlaceShip, setCompBoard}
 };

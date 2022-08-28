@@ -3,16 +3,23 @@ import { Player } from "./createPlayer";
 import { Ship } from "./createShip";
 
 export const Game = () => {
+    let titleBox = document.createElement('div');
+    titleBox.setAttribute('class', 'titleBox');
+    let titleText = document.createElement('h1');
+    titleText.setAttribute('class', 'titleText');
+    titleText.textContent = "Battleship";
+    titleBox.appendChild(titleText);
+    document.body.appendChild(titleBox);
 
-    const human = Player('Tyler', true);
+    const human = Player('User', true);
     const comp = Player('Computer', false);
     
     let gameArea = document.createElement('div');
     gameArea.setAttribute('id', 'gameArea');
     document.body.appendChild(gameArea);
 
-    comp.board.displayBoard();
-    human.board.displayBoard();
+    comp.displayBoard(human);
+    human.displayBoard(comp);
     human.createFleet();
     comp.createFleet();
 
@@ -29,24 +36,20 @@ export const Game = () => {
 
     console.log('compBoard');
     console.log(comp.board.board);
-    //human.gameOn();
-    human.turn = true;
-    let game = true;
+    console.log('userBoard');
+    console.log(human.board.board);
 
-    const takeTurns = ()=>{
-        if (turn === human){
-            turn = comp;
-        } else if (turn === comp){
-            turn = human;
-        }
-    }
+    human.turn = true;
+    let gameOn = true;
 
     const playGame = () => {
-        if (comp.board.receiveAttack){
-            comp.compAttack(human.board);
+        while (gameOn === true){
+            if (comp.turn ===  true){
+                comp.compAttack(human.board);
+            }
         }
     }
 
     //comp.compAttack(human.board);
-    playGame();
+    //playGame();
 }
