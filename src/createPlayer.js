@@ -100,16 +100,14 @@ export const Player = (name, human) => {
                             const playAgainYesButton = document.createElement('button');
                             playAgainYesButton.setAttribute('id', "playAgainYesButton");
                             playAgainYesButton.setAttribute('class', 'playAgainButton');
-                            playAgainYesButton.textContent = "Yes";
-                            const playAgainNoButton = document.createElement('button');
-                            playAgainNoButton.setAttribute('id', "playAgainNoButton");
-                            playAgainNoButton.setAttribute('class', 'playAgainButton');
-                            playAgainNoButton.textContent = "No";
+                            playAgainYesButton.textContent = "Report for Duty";
+                            playAgainYesButton.addEventListener('click', function(){
+                                window.location.reload();
+                            });
                             const playAgainButtonBox = document.createElement('div');
                             playAgainButtonBox.setAttribute('id', 'playAgainButtonBox')
                             playAgainBox.appendChild(playAgainText);
                             playAgainButtonBox.appendChild(playAgainYesButton);
-                            playAgainButtonBox.appendChild(playAgainNoButton);
                             playAgainBox.appendChild(playAgainButtonBox);
                             gameArea.appendChild(playAgainBox);
                         }

@@ -5,7 +5,9 @@
 
 .titleText {
     align-self: center;
+    justify-self: center;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 4rem;
 }
 
 #gameArea{
@@ -63,15 +65,15 @@
 
 #playAgainButtonBox {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     justify-self: center;
     align-self: center;
     align-content: center;
-    gap: 10px;
 }
 
 .playAgainButton {
-    width: 4rem;
+    width: 8rem;
+    height: 2rem;
     background-color: black;
     color: white;
     border-radius: 8px;

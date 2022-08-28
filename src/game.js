@@ -10,6 +10,7 @@ export const Game = () => {
     titleText.textContent = "Battleship";
     titleBox.appendChild(titleText);
     document.body.appendChild(titleBox);
+    
 
     const human = Player('User', true);
     const comp = Player('Computer', false);
