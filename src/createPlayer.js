@@ -67,7 +67,11 @@ export const Player = (name, human) => {
                 let square = document.createElement('div');
                 square.setAttribute('class', boradName + 'Square');
                 square.setAttribute('id', boradName + i+j);
-                if (human === false){
+                if(human === true){
+                    if( typeof board.board[i][j] === 'object'){
+                        square.setAttribute('class', 'userShip');
+                    } 
+                } else if (human === false){
                     square.addEventListener('click', function fire() {
                         //while (gameOn === true){
                         opp.attack(i,j,board);
@@ -76,37 +80,57 @@ export const Player = (name, human) => {
                             compAttack(opp.board);
                             if (opp.board.areAllSunk()=== true){
                                 const playAgainBox = document.createElement('div');
-                                playAgainBox.setAttribute('id', 'playAgainBox');
-                                const playAgainText = document.createElement('p');
-                                playAgainText.textContent = opp.name + " wins! Play Again?";
+                                playAgainBox.setAttribute('class', 'alertBox');
+                                const playAgainText = document.createElement('div');
+                                playAgainText.setAttribute('id', 'playAgainText');
+                                const playAgainWinnerText = document.createElement('p');
+                                playAgainWinnerText.setAttribute('class', 'boxText');
+                                playAgainWinnerText.textContent = opp.name + " wins!";
+                                const playAgainQuestion = document.createElement('p');
+                                playAgainQuestion.setAttribute('class', 'boxText');
+                                playAgainQuestion.textContent = "Play Again?"
+                                playAgainText.appendChild(playAgainWinnerText);
+                                playAgainText.appendChild(playAgainQuestion);
                                 const playAgainYesButton = document.createElement('button');
                                 playAgainYesButton.setAttribute('id', "playAgainYesButton");
                                 playAgainYesButton.setAttribute('class', 'playAgainButton');
-                                const playAgainNoButton = document.createElement('button');
-                                playAgainNoButton.setAttribute('id', "playAgainNoButton");
-                                playAgainNoButton.setAttribute('class', 'playAgainButton');
+                                playAgainYesButton.textContent = "Anchors aweigh";
+                                playAgainYesButton.addEventListener('click', function(){
+                                    window.location.reload();
+                                });
                                 const playAgainButtonBox = document.createElement('div');
+                                const playAgainBoxBG = document.createElement('div');
+                                playAgainBoxBG.setAttribute('class', 'bgBox')
+                                playAgainButtonBox.setAttribute('id', 'playAgainButtonBox')
                                 playAgainBox.appendChild(playAgainText);
                                 playAgainButtonBox.appendChild(playAgainYesButton);
-                                playAgainButtonBox.appendChild(playAgainNoButton);
                                 playAgainBox.appendChild(playAgainButtonBox);
+                                playAgainBoxBG.appendChild(playAgainBox);
+                                gameArea.appendChild(playAgainBoxBG);
                             }
                         } else if (board.areAllSunk() === true){
                             const playAgainBox = document.createElement('div');
-                            playAgainBox.setAttribute('id', 'playAgainBox');
-                            const playAgainText = document.createElement('p');
-                            playAgainText.setAttribute('id', 'playAgainText')
-                            playAgainText.textContent = name + " wins! Play Again?";
+                            playAgainBox.setAttribute('class', 'alertBox');
+                            const playAgainText = document.createElement('div');
+                            playAgainText.setAttribute('id', 'playAgainText');
+                            const playAgainWinnerText = document.createElement('p');
+                            playAgainWinnerText.setAttribute('class', 'boxText');
+                            playAgainWinnerText.textContent = name + " wins!";
+                            const playAgainQuestion = document.createElement('p');
+                            playAgainQuestion.setAttribute('class', 'boxText');
+                            playAgainQuestion.textContent = "Play Again?"
+                            playAgainText.appendChild(playAgainWinnerText);
+                            playAgainText.appendChild(playAgainQuestion);
                             const playAgainYesButton = document.createElement('button');
                             playAgainYesButton.setAttribute('id', "playAgainYesButton");
                             playAgainYesButton.setAttribute('class', 'playAgainButton');
-                            playAgainYesButton.textContent = "Report for Duty";
+                            playAgainYesButton.textContent = "Anchors aweigh";
                             playAgainYesButton.addEventListener('click', function(){
                                 window.location.reload();
                             });
                             const playAgainButtonBox = document.createElement('div');
                             const playAgainBoxBG = document.createElement('div');
-                            playAgainBoxBG.setAttribute('class', 'playAgainButtonBoxBG')
+                            playAgainBoxBG.setAttribute('class', 'bgBox')
                             playAgainButtonBox.setAttribute('id', 'playAgainButtonBox')
                             playAgainBox.appendChild(playAgainText);
                             playAgainButtonBox.appendChild(playAgainYesButton);

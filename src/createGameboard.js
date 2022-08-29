@@ -68,7 +68,13 @@ export const Gameboard = (player, user) => {
                     } else if (direction === "vertical"){
                         y++;
                     }
+                    if (user === true){
+                        let spot = document.getElementById(player + x + y);
+                        spot.setAttribute('class', 'userShip');
+                    }
                 }
+                
+                
                 return true;
             }
     }
@@ -106,10 +112,27 @@ export const Gameboard = (player, user) => {
             let shipHit = board[x][y].name;
             board[x][y] = "hit";
             if(areAllSunk() === true) {
-                alert("Game Over! All "+player+"'s ships sank");
                 gameOn = false;
             }else if (shipHit.isSunk() === true){
-                alert(shipHit.getName() + " is Sunk");
+                const sunkBG = document.createElement('div');
+                sunkBG.setAttribute('class', 'bgBox');
+                const sunkBox = document.createElement('div');
+                sunkBox.setAttribute('class', 'alertBox');
+                const sunkText = document.createElement('p');
+                sunkText.setAttribute('class', 'boxText');
+                sunkText.textContent= player + "'s "+shipHit.getName() + " is Sunk"
+                const sunkButton = document.createElement('button');
+                sunkButton.setAttribute('class', 'playAgainButton');
+                sunkButton.setAttribute('id', 'sunkButton');
+                sunkButton.addEventListener('click', function(){
+                    document.body.removeChild(sunkBG);
+                })
+                sunkButton.textContent = "Praise the Lord and pass the ammunition!"
+                sunkBox.appendChild(sunkText);
+                sunkBox.appendChild(sunkButton);
+                sunkBG.appendChild(sunkBox);
+                document.body.appendChild(sunkBG);
+
             }
             
             

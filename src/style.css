@@ -1,7 +1,12 @@
+@font-face {
+    font-family: tattoo;
+    src: url(./files/rats-get-fat/Rats-Get-Fat.ttf);
+}
 body {
     background-image: url(./files/oceanBG.jpg);
     background-size: cover;
     background-repeat: no-repeat;
+    font-family: tattoo;
 }
 
 .titleBox {
@@ -12,8 +17,9 @@ body {
 .titleText {
     align-self: center;
     justify-self: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 4rem;
+    font-size: 5rem;
+    font-family: tattoo;
+    text-shadow: 2px 2px whitesmoke;
 }
 
 #gameArea{
@@ -40,8 +46,9 @@ body {
     border: 2px solid black;
 }
 
-.shipSquare {
-    background-color: rgb(251, 160, 160);
+.userShip {
+    background-color: rgb(142, 142, 142);
+    border: 2px solid black;
 }
 .hit {
     background-color: red;
@@ -52,7 +59,7 @@ body {
     border: 2px solid black;
 }
 
-#playAgainBox {
+.alertBox {
     position: absolute;
     display: grid;
     grid-template-rows: 2fr 1fr;
@@ -60,18 +67,26 @@ body {
     left: 40%;
     height: 33%;
     top:33%;
-    background-color: aquamarine;
-    color: black;
-    border: 2px solid black;
+    background-color: black;
+    color: white;
+    border: 2px solid white;
     align-content: center;
 }
 
 #playAgainText {
     justify-self: center;
     align-self: center;
+    align-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+.boxText{
+    align-self: center;
+    justify-self: center;
+    text-align: center;
 }
 
-.playAgainButtonBoxBG {
+.bgBox {
     position: absolute;
     top: 0px;
     left: 0px;
@@ -87,13 +102,21 @@ body {
     justify-self: center;
     align-self: center;
     align-content: center;
+    text-align: center;
 }
 
 .playAgainButton {
     width: 8rem;
     height: 2rem;
-    background-color: black;
-    color: white;
+    background-color: red;
+    color: black;
     border-radius: 8px;
     border: none;
+    font-family: tattoo;
+    text-align: center;
+}
+
+#sunkButton {
+    justify-self: center;
+    width: auto;
 }
