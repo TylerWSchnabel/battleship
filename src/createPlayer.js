@@ -105,11 +105,14 @@ export const Player = (name, human) => {
                                 window.location.reload();
                             });
                             const playAgainButtonBox = document.createElement('div');
+                            const playAgainBoxBG = document.createElement('div');
+                            playAgainBoxBG.setAttribute('class', 'playAgainButtonBoxBG')
                             playAgainButtonBox.setAttribute('id', 'playAgainButtonBox')
                             playAgainBox.appendChild(playAgainText);
                             playAgainButtonBox.appendChild(playAgainYesButton);
                             playAgainBox.appendChild(playAgainButtonBox);
-                            gameArea.appendChild(playAgainBox);
+                            playAgainBoxBG.appendChild(playAgainBox);
+                            gameArea.appendChild(playAgainBoxBG);
                         }
                     });
                 };

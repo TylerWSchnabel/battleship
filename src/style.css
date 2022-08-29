@@ -1,3 +1,9 @@
+body {
+    background-image: url(./files/oceanBG.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .titleBox {
     display: grid;
     width: 100%;
@@ -14,6 +20,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
+   
     
 }
 
@@ -23,6 +30,7 @@
     width: 400px;
     border: 2px solid black;
     justify-self: center;
+    background-color: white;
 }
 .row {
     display: grid;
@@ -48,8 +56,8 @@
     position: absolute;
     display: grid;
     grid-template-rows: 2fr 1fr;
-    width: 33%;
-    left: 33%;
+    width:20%;
+    left: 40%;
     height: 33%;
     top:33%;
     background-color: aquamarine;
@@ -62,6 +70,16 @@
     justify-self: center;
     align-self: center;
 }
+
+.playAgainButtonBoxBG {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    background: none;
+}
+
 
 #playAgainButtonBox {
     display: grid;
