@@ -67,11 +67,7 @@ export const Player = (name, human) => {
                 let square = document.createElement('div');
                 square.setAttribute('class', boradName + 'Square');
                 square.setAttribute('id', boradName + i+j);
-                if(human === true){
-                    if( typeof board.board[i][j] === 'object'){
-                        square.setAttribute('class', 'userShip');
-                    } 
-                } else if (human === false){
+                if (human === false){
                     square.addEventListener('click', function fire() {
                         //while (gameOn === true){
                         opp.attack(i,j,board);
@@ -85,7 +81,7 @@ export const Player = (name, human) => {
                                 playAgainText.setAttribute('id', 'playAgainText');
                                 const playAgainWinnerText = document.createElement('p');
                                 playAgainWinnerText.setAttribute('class', 'boxText');
-                                playAgainWinnerText.textContent = opp.name + " wins!";
+                                playAgainWinnerText.textContent = name + " wins!";
                                 const playAgainQuestion = document.createElement('p');
                                 playAgainQuestion.setAttribute('class', 'boxText');
                                 playAgainQuestion.textContent = "Play Again?"
@@ -115,7 +111,7 @@ export const Player = (name, human) => {
                             playAgainText.setAttribute('id', 'playAgainText');
                             const playAgainWinnerText = document.createElement('p');
                             playAgainWinnerText.setAttribute('class', 'boxText');
-                            playAgainWinnerText.textContent = name + " wins!";
+                            playAgainWinnerText.textContent = opp.getName() + " wins!";
                             const playAgainQuestion = document.createElement('p');
                             playAgainQuestion.setAttribute('class', 'boxText');
                             playAgainQuestion.textContent = "Play Again?"

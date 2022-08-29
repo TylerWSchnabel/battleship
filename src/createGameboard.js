@@ -62,15 +62,15 @@ export const Gameboard = (player, user) => {
             if (spotAvail(x,y,ship.tiles.length) === true){
                 for (let i=0; i<ship.tiles.length; i++){
                     board[x].splice(y, 1, {name: ship , spot: i})
+                    if (user === true){
+                        let spot = document.getElementById(player + x + y);
+                        spot.setAttribute('class', 'userShip');
+                    }
                     
                     if (direction === "horizontal"){
                         x++;
                     } else if (direction === "vertical"){
                         y++;
-                    }
-                    if (user === true){
-                        let spot = document.getElementById(player + x + y);
-                        spot.setAttribute('class', 'userShip');
                     }
                 }
                 

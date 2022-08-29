@@ -24,6 +24,7 @@ export const Game = () => {
     human.createFleet();
     comp.createFleet();
 
+    
     human.board.placeShip(3,4, human.fleet[0]);
     human.board.shipDirection();
     human.board.placeShip(7,4,human.fleet[1]);
