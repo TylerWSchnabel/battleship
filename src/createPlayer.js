@@ -30,7 +30,6 @@ export const Player = (name, human) => {
     
     const attack = (x,y, Gameboard) => {
         Gameboard.receiveAttack(x,y);
-        console.log(name + " attacked");
     }
     
     let lastTurn = [];
@@ -67,13 +66,75 @@ export const Player = (name, human) => {
                 let square = document.createElement('div');
                 square.setAttribute('class', boradName + 'Square');
                 square.setAttribute('id', boradName + i+j);
-                if (human === false){
+                if (human === true){
+                    if (fleet.length > 0){
+                        let rotateBox = document.createElement('div');
+                        rotateBox.setAttribute('class','alertBox');
+                        rotateBox.setAttribute('id', 'rotateBoxID')
+                        let rotateText = document.createElement('p');
+                        rotateText.setAttribute('class', 'boxText');
+                        rotateText.textContent = 'Ship ' + fleet[0].getName();
+                        let rotateGraphic = document.createElement('div');
+                        rotateGraphic.setAttribute('class', board.direction+'Ship')
+                        function showShip(ship){
+                            for(let i=0; i<ship.tiles.length; i++){
+                                let shipPlacment = document.createElement('div');
+                                shipPlacment.setAttribute('class', 'userSquare');
+                                rotateGraphic.appendChild(shipPlacment);
+                            }
+                        }
+                        showShip(fleet[0]);
+                        //let rotateBoxShip = 
+                        let rotateBtn = document.createElement('button');
+                        rotateBtn.setAttribute('class', 'playAgainButton');
+                        rotateBtn.textContent = "Rotate Ship";
+                        let rotateDirection = document.createElement('p');
+                        rotateDirection.textContent = board.direction;
+                        rotateBtn.addEventListener('click', function(){
+                            board.shipDirection()
+                            rotateDirection.textContent = board.direction;
+                            console.log(board.direction);
+                            rotateBox.appendChild(rotateText);
+                            rotateBox.appendChild(rotateGraphic);
+                            rotateBox.appendChild(rotateBtn);
+                            rotateBox.appendChild(rotateDirection);
+                            document.body.appendChild(rotateBox);
+                        })
+                       
+                        rotateDirection.textContent = board.direction;
+                        rotateDirection.setAttribute('class', 'boxText');
+                        rotateBox.appendChild(rotateText)
+                        rotateBox.appendChild(rotateGraphic);
+                        rotateBox.appendChild(rotateBtn);
+                        rotateBox.appendChild(rotateDirection);
+                        
+                        document.body.appendChild(rotateBox);
+                        square.addEventListener('click', function place(){
+                            if (board.spotAvail(i,j,fleet[0].tiles.length) === true){
+                                board.placeShip(i,j,fleet[0]);
+                                fleet.splice(0,1);
+                                if (fleet.length === 0){
+                                    document.body.removeChild(document.getElementById('rotateBoxID'));
+                                    square.removeEventListener('click', placeShip)
+                                } else {
+                                    rotateText.textContent = 'Ship ' + fleet[0].getName();
+                                    rotateBox.appendChild(rotateText);
+                                    rotateBox.appendChild(rotateGraphic);
+                                    rotateBox.appendChild(rotateBtn);
+                                    rotateBox.appendChild(rotateDirection);
+                                    document.body.appendChild(rotateBox);
+                                    console.log(fleet[0].getName())
+                                }
+                            } else {
+                                alert('Spot unavailable');
+                            }
+                        })
+                    } 
+                } else if (human === false){
                     square.addEventListener('click', function fire() {
-                        //while (gameOn === true){
                         opp.attack(i,j,board);
                         square.removeEventListener('click', fire);
                         if (board.areAllSunk() === false){
-                            compAttack(opp.board);
                             if (opp.board.areAllSunk()=== true){
                                 const playAgainBox = document.createElement('div');
                                 playAgainBox.setAttribute('class', 'alertBox');
@@ -104,6 +165,7 @@ export const Player = (name, human) => {
                                 playAgainBoxBG.appendChild(playAgainBox);
                                 gameArea.appendChild(playAgainBoxBG);
                             }
+                            compAttack(opp.board);
                         } else if (board.areAllSunk() === true){
                             const playAgainBox = document.createElement('div');
                             playAgainBox.setAttribute('class', 'alertBox');
@@ -135,7 +197,7 @@ export const Player = (name, human) => {
                             gameArea.appendChild(playAgainBoxBG);
                         }
                     });
-                };
+                }
                 row.appendChild(square);
             }
             boardArea.appendChild(row);

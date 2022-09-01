@@ -46,6 +46,20 @@ body {
     border: 2px solid black;
 }
 
+.verticalShip {
+    display: grid;
+    grid-template-rows: auto-fill, 40px;
+    grid-template-columns: 1fr;
+    width: 40px;
+}
+
+.horizontalShip {
+    display: grid;
+    grid-template-columns: auto-fill, 40px;
+    grid-template-rows: 1fr;
+    height: 40px;
+}
+
 .userShip {
     background-color: rgb(142, 142, 142);
     border: 2px solid black;
@@ -115,6 +129,7 @@ body {
     border: none;
     font-family: tattoo;
     text-align: center;
+    justify-self: center;
 }
 
 #sunkButton {

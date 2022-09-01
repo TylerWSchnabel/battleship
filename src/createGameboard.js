@@ -73,8 +73,6 @@ export const Gameboard = (player, user) => {
                         y++;
                     }
                 }
-                
-                
                 return true;
             }
     }
@@ -111,9 +109,7 @@ export const Gameboard = (player, user) => {
             spot.setAttribute('class', 'hit');
             let shipHit = board[x][y].name;
             board[x][y] = "hit";
-            if(areAllSunk() === true) {
-                gameOn = false;
-            }else if (shipHit.isSunk() === true){
+            if (shipHit.isSunk() === true){
                 const sunkBG = document.createElement('div');
                 sunkBG.setAttribute('class', 'bgBox');
                 const sunkBox = document.createElement('div');
@@ -134,13 +130,10 @@ export const Gameboard = (player, user) => {
                 document.body.appendChild(sunkBG);
 
             }
-            
-            
             return "hit";
         } else {
             board[x][y] = "miss";
             spot.setAttribute('class', 'miss');
-
             return "miss";
         }
     };
@@ -158,33 +151,5 @@ export const Gameboard = (player, user) => {
         return sunk;
     }
 
-    /*const displayBoard = () => {
-        let boardArea = document.createElement('div');
-        boardArea.setAttribute('class', 'gameboards');
-        boardArea.setAttribute('id', player + 'Board');
-        for (let i=0; i<board.length; i++){
-            let row = document.createElement('div');
-            row.setAttribute('class', 'row');
-            row.setAttribute('id', player + 'Row' + i);
-            for (let j=0; j<board[i].length; j++){
-                let square = document.createElement('div');
-                square.setAttribute('class', player + 'Square');
-                square.setAttribute('id', player + i+j);
-                if (user === false){
-                    square.addEventListener('click', function attack() {
-                        //while (gameOn === true){
-                            receiveAttack(i,j);
-                            square.removeEventListener('click', attack);
-
-                        //}
-                    });
-                };
-                row.appendChild(square);
-            }
-            boardArea.appendChild(row);
-            let gameArea = document.getElementById('gameArea');
-            gameArea.appendChild(boardArea);
-        }
-    }*/
-    return {init, placeShip, receiveAttack, shipDirection, board, areAllSunk,spotAvail, /*displayBoard, */gameOn, direction,compPlaceShip, setCompBoard}
+    return {init, placeShip, receiveAttack, shipDirection, board, areAllSunk,spotAvail, gameOn, direction, compPlaceShip, setCompBoard}
 };
