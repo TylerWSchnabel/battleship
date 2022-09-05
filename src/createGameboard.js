@@ -18,12 +18,12 @@ export const Gameboard = (player, user) => {
     const spotAvail = (x,y,length) => {
         let open = true
         if (direction === "vertical"){
-            if(y+length>9){
+            if(y+length>10){
                 open = false;
-                console.log(x+ " " + y +" too wide");
+                console.log(x+ " " + y +" too long");
                 return open;
-            }else {
-                for (let i=y; i<length; i++){
+            } else {
+                for (let i=y; i< y+length; i++){
                     if (board[x][i] !== "empty"){
                         open = false;
                         console.log(x +' '+ y +" spot taken");
@@ -32,13 +32,13 @@ export const Gameboard = (player, user) => {
                 }
             }
         } else if (direction === "horizontal"){
-            if(x+length>9){
+            if(x+length>10){
                 open = false;
-                console.log(x+ " " +y +" too long");
+                console.log(x+ " " +y +" too wide");
                 return open;
             }else {
-                for (let i=x; i<length; i++){
-                    if (board[i][y] !== "empty"){
+                for (let i=x; i<x+length; i++){
+                    if (board[i][y] !== 'empty'){
                         open = false;
                         console.log(x + " " + y +" spot taken");
                         return open;
@@ -46,6 +46,7 @@ export const Gameboard = (player, user) => {
                 }
             }
         }
+        console.log(direction);
         return open;
     }
         
