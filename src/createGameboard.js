@@ -20,13 +20,11 @@ export const Gameboard = (player, user) => {
         if (direction === "vertical"){
             if(y+length>10){
                 open = false;
-                console.log(x+ " " + y +" too long");
                 return open;
             } else {
                 for (let i=y; i< y+length; i++){
                     if (board[x][i] !== "empty"){
                         open = false;
-                        console.log(x +' '+ y +" spot taken");
                         return open;
                     }
                 }
@@ -34,19 +32,16 @@ export const Gameboard = (player, user) => {
         } else if (direction === "horizontal"){
             if(x+length>10){
                 open = false;
-                console.log(x+ " " +y +" too wide");
                 return open;
             }else {
                 for (let i=x; i<x+length; i++){
                     if (board[i][y] !== 'empty'){
                         open = false;
-                        console.log(x + " " + y +" spot taken");
                         return open;
                     }
                 }
             }
         }
-        console.log(direction);
         return open;
     }
         
@@ -88,7 +83,6 @@ export const Gameboard = (player, user) => {
                 shipDirection();
             }
             if (spotAvail(x,y,ship.tiles.length) === true){
-                console.log(x+' '+y+ ' '+ direction +" "+ship.getName());
                 placeShip(x,y,ship);
                 shipDocked = false;
             }
@@ -106,7 +100,6 @@ export const Gameboard = (player, user) => {
         if (typeof board[x][y] === "object"){
             spot.setAttribute('class', 'hit');
             board[x][y].name.hit(board[x][y].spot);
-            console.log(board[x][y].name.tiles);
             spot.setAttribute('class', 'hit');
             let shipHit = board[x][y].name;
             board[x][y] = "hit";
@@ -129,9 +122,10 @@ export const Gameboard = (player, user) => {
                 sunkBox.appendChild(sunkButton);
                 sunkBG.appendChild(sunkBox);
                 document.body.appendChild(sunkBG);
-
+                return 'sunk';
+            } else {
+                return "hit";
             }
-            return "hit";
         } else {
             board[x][y] = "miss";
             spot.setAttribute('class', 'miss');

@@ -7,7 +7,7 @@ export const Player = (name, human) => {
     const isHuman = () => human;
     const fleet = [];
     let boradName;
-    let turn = false;
+
     if (human === true){
         boradName = "user";
     } else {
@@ -29,28 +29,113 @@ export const Player = (name, human) => {
     }
     
     const attack = (x,y, Gameboard) => {
-        Gameboard.receiveAttack(x,y);
+        return Gameboard.receiveAttack(x,y);
     }
     
-    let lastTurn = [];
-    let lastResult = '';
+    let lastX;
+    let lastY;
+    let nextX;
+    let nextY;
+    let nextTurn;
+    let inHit = false;
     const compAttack = (playerBoard) => {
         let compTurn = true;
+        
         while (compTurn === true){
-            let x= Math.floor(Math.random() * 10);
-            let y= Math.floor(Math.random() * 10);
-            console.log('compAttack '+ x+' '+y)
-            if (playerBoard.board[x][y] === "empty" || typeof playerBoard.board[x][y] ==="object" ){
-                attack(x,y, playerBoard);
-                //lastResult = attack(x,y, playerBoard);
-                /*if (lastResult === true){
-                    lastTurn[0] = x;
-                    lastTurn[1] = y;
-                }*/
+            /*if (inHit === true){
+                console.log('in hit');
+                if(nextTurn === 'verticalPlus'){
+                    if(playerBoard.board[nextX][lastY] === "empty" || typeof playerBoard.board[lastX+1][lastY] ==="object"){
+                        if(attack(nextX,lastY, playerBoard) === 'hit'){
+                            nextX++
+                        } else{
+                            nextX = lastX - 1;
+                            nextTurn = 'verticalMinus';
+                        }
+                    } else if (playerBoard.board[lastX - 1][lastY] === "empty" || typeof playerBoard.board[lastX+1][lastY] ==="object"){
+                        if (attack(lastX - 1,lastY, playerBoard) === 'hit'){
+                            nextX = lastX - 2;
+                            nextTurn = "verticalMinus";
+                        }else {
+                            nextX= lastX;
+                            nextTurn = "horizontalPlus";
+                        }
+                    } else if (playerBoard.board[lastX][nextY] === "empty" || typeof playerBoard.board[lastX][nextY] ==="object"){
+                        if (attack(lastX,nextY, playerBoard) === 'hit'){
+                            nextY++
+                        } else {
+                            nextY = lastY-1;
+                            nextTurn = "horizontalMinus"
+                        }
+                    } else if (playerBoard.board[lastX][lastY-1] === "empty" || typeof playerBoard.board[lastX][lastY - 1] ==="object"){
+                        if (attack(lastX,lastY-1, playerBoard) === 'hit'){
+                            nextY = lastY-2;
+                        } else{
+                            inHit = false;
+                        }
+                    }
+                } else if (nextTurn = 'verticalMinus'){
+                    if(playerBoard.board[nextX][lastY] === "empty" || typeof playerBoard.board[lastX+1][lastY] ==="object"){
+                        if(attack(nextX,lastY, playerBoard) === 'hit'){
+                            nextX--;
+                        } else if (playerBoard.board[lastX][nextY] === "empty" || typeof playerBoard.board[lastX][nextY] ==="object"){
+                            if (attack(lastX,nextY, playerBoard) === 'hit'){
+                                nextY++
+                            } else {
+                                nextY = lastY-1;
+                                nextTurn = "horizontalMinus"
+                            }
+                        } else if (playerBoard.board[lastX][lastY-1] === "empty" || typeof playerBoard.board[lastX][lastY - 1] ==="object"){
+                            if (attack(lastX,lastY-1, playerBoard) === 'hit'){
+                                nextY = lastY-2;
+                                nextTurn='horizontalMinus';
+                            } else {
+                                inHit = false;
+                            }
+                        }
+                    }
+                } else if (nextTurn = 'horizontalPlus'){
+                    if (playerBoard.board[lastX][nextY] === "empty" || typeof playerBoard.board[lastX][nextY] ==="object"){
+                        if (attack(lastX,nextY, playerBoard) === 'hit'){
+                            nextY++
+                        } else {
+                            nextY = lastY-1;
+                            nextTurn = 'horizontalMinus';
+                        }
+                    } else if (playerBoard.board[lastX][lastY-1] === "empty" || typeof playerBoard.board[lastX][lastY - 1] ==="object"){
+                        if (attack(lastX,lastY-1, playerBoard) === 'hit'){
+                            nextY = lastY-2;
+                            nextTurn='horizontalMinus';
+                        } else {
+                            inHit = false;
+                        }
+                    }
+                } else if (nextTurn === 'horizontalMinus'){
+                    if (playerBoard.board[lastX][nextY] === "empty" || typeof playerBoard.board[lastX][nextY] ==="object"){
+                        if (attack(lastX,nextY, playerBoard) === 'hit'){
+                            nextY--
+                        } else {
+                            inHit = false;
+                        }
+                    }
                 compTurn = false;
-                //return attack(x,y, playerBoard);
-            } else {
-                console.log("already attacked");
+            } else {*/
+                let x= Math.floor(Math.random() * 10);
+                let y= Math.floor(Math.random() * 10);
+                if (playerBoard.board[x][y] === "empty" || typeof playerBoard.board[x][y] ==="object" ){
+                    if(attack(x,y, playerBoard) === 'hit'){
+                        inHit = true;
+                        lastX = x;
+                        lastY = y;
+                        nextX = x+1;
+                        nextY = y+1;
+                        nextTurn = 'verticalUp'
+                    } else {
+                        inHit = false;
+                    };
+                    compTurn = false;
+                    //}
+                //}
             }
         }
     }
@@ -102,18 +187,7 @@ export const Player = (name, human) => {
                 }
                 document.body.removeChild(document.getElementById(name+'rotateBoxID'));
                 document.body.removeChild(document.getElementById('rotateBoxBG'));
-                console.log(direction);
                 displayShipBox();
-                /*rotateDirection.textContent = board.direction;
-                rotateGraphic.setAttribute('class', board.direction+'Ship');
-                
-                showShip(fleet[0]);
-                console.log(board.direction);
-                rotateBox.appendChild(rotateText);
-                rotateBox.appendChild(rotateGraphic);
-                rotateBox.appendChild(rotateBtn);
-                rotateBox.appendChild(rotateDirection);
-                document.body.appendChild(rotateBox);*/
             })
     }
 
@@ -140,7 +214,6 @@ export const Player = (name, human) => {
                 square.setAttribute('class', boradName + 'Square');
                 square.setAttribute('id', boradName + i+j);
                 if (human === true){
-                    let squareClassName = square.className;
                     square.addEventListener('dragover', function(){
                         if (board.spotAvail(i,j,fleet[0].tiles.length) === true){
                             square.setAttribute('class', 'available');
@@ -164,8 +237,6 @@ export const Player = (name, human) => {
                             document.body.removeChild(document.getElementById('rotateBoxBG'));
                             if (fleet.length > 0){
                                 displayShipBox();
-                                console.log(fleet[0].getName())
-                                console.log(board.board);
                             }
                         } else {
                             if (typeof board.board[i][j] === 'object'){
@@ -175,26 +246,6 @@ export const Player = (name, human) => {
                             }
                         }
                     });
-                    
-
-                    /*square.addEventListener('click', function place(){
-                        if (fleet.length > 0){
-                            if (board.spotAvail(i,j,fleet[0].tiles.length) === true){
-                                board.placeShip(i,j,fleet[0]);
-                                fleet.splice(0,1);
-                                document.body.removeChild(document.getElementById(name+'rotateBoxID'));
-                                document.body.removeChild(document.getElementById('rotateBoxBG'));
-                                if (fleet.length > 0){
-                                    displayShipBox();
-                                    console.log(fleet[0].getName())
-                                    console.log(board.board);
-                                }
-                            } else {
-                                alert('Spot unavailable');
-                            }
-                    }
-                    
-                    });*/
                 } else if (human === false){
                     
                     square.addEventListener('click', function fire() {
@@ -231,7 +282,7 @@ export const Player = (name, human) => {
                                 playAgainBoxBG.appendChild(playAgainBox);
                                 gameArea.appendChild(playAgainBoxBG);
                             }
-                            compAttack(opp.board);
+                            setTimeout(function(){compAttack(opp.board)}, 200);
                         } else if (board.areAllSunk() === true){
                             const playAgainBox = document.createElement('div');
                             playAgainBox.setAttribute('class', 'alertBox');
