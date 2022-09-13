@@ -5,9 +5,9 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "build": "webpack"
+    "build": "webpack",
+    "predeploy": "npm run build"
   },
-  "predeploy": "npm run build",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/TylerWSchnabel/battleship.git"

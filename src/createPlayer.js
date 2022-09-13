@@ -169,8 +169,9 @@ export const Player = (name, human) => {
             rotateDirection.textContent = direction;
             
         
-            rotateDirection.textContent = direction;
+            rotateDirection.textContent = 'Drag ship to User Board';
             rotateDirection.setAttribute('class', 'boxText');
+            rotateDirection.setAttribute('id', 'rotateDirection');
             rotateBox.appendChild(rotateText)
             rotateBox.appendChild(rotateGraphic);
             rotateBox.appendChild(rotateBtn);
@@ -253,6 +254,7 @@ export const Player = (name, human) => {
                         square.removeEventListener('click', fire);
                         if (board.areAllSunk() === false){
                             if (opp.board.areAllSunk()=== true){
+                                document.body.removeChild(document.getElementById('directionBoxID'));
                                 const playAgainBox = document.createElement('div');
                                 playAgainBox.setAttribute('class', 'alertBox');
                                 const playAgainText = document.createElement('div');
