@@ -32,110 +32,19 @@ export const Player = (name, human) => {
         return Gameboard.receiveAttack(x,y);
     }
     
-    let lastX;
-    let lastY;
-    let nextX;
-    let nextY;
-    let nextTurn;
+    let nextTurn = [];
+
     let inHit = false;
+
     const compAttack = (playerBoard) => {
         let compTurn = true;
         
         while (compTurn === true){
-            /*if (inHit === true){
-                console.log('in hit');
-                if(nextTurn === 'verticalPlus'){
-                    if(playerBoard.board[nextX][lastY] === "empty" || typeof playerBoard.board[lastX+1][lastY] ==="object"){
-                        if(attack(nextX,lastY, playerBoard) === 'hit'){
-                            nextX++
-                        } else{
-                            nextX = lastX - 1;
-                            nextTurn = 'verticalMinus';
-                        }
-                    } else if (playerBoard.board[lastX - 1][lastY] === "empty" || typeof playerBoard.board[lastX+1][lastY] ==="object"){
-                        if (attack(lastX - 1,lastY, playerBoard) === 'hit'){
-                            nextX = lastX - 2;
-                            nextTurn = "verticalMinus";
-                        }else {
-                            nextX= lastX;
-                            nextTurn = "horizontalPlus";
-                        }
-                    } else if (playerBoard.board[lastX][nextY] === "empty" || typeof playerBoard.board[lastX][nextY] ==="object"){
-                        if (attack(lastX,nextY, playerBoard) === 'hit'){
-                            nextY++
-                        } else {
-                            nextY = lastY-1;
-                            nextTurn = "horizontalMinus"
-                        }
-                    } else if (playerBoard.board[lastX][lastY-1] === "empty" || typeof playerBoard.board[lastX][lastY - 1] ==="object"){
-                        if (attack(lastX,lastY-1, playerBoard) === 'hit'){
-                            nextY = lastY-2;
-                        } else{
-                            inHit = false;
-                        }
-                    }
-                } else if (nextTurn = 'verticalMinus'){
-                    if(playerBoard.board[nextX][lastY] === "empty" || typeof playerBoard.board[lastX+1][lastY] ==="object"){
-                        if(attack(nextX,lastY, playerBoard) === 'hit'){
-                            nextX--;
-                        } else if (playerBoard.board[lastX][nextY] === "empty" || typeof playerBoard.board[lastX][nextY] ==="object"){
-                            if (attack(lastX,nextY, playerBoard) === 'hit'){
-                                nextY++
-                            } else {
-                                nextY = lastY-1;
-                                nextTurn = "horizontalMinus"
-                            }
-                        } else if (playerBoard.board[lastX][lastY-1] === "empty" || typeof playerBoard.board[lastX][lastY - 1] ==="object"){
-                            if (attack(lastX,lastY-1, playerBoard) === 'hit'){
-                                nextY = lastY-2;
-                                nextTurn='horizontalMinus';
-                            } else {
-                                inHit = false;
-                            }
-                        }
-                    }
-                } else if (nextTurn = 'horizontalPlus'){
-                    if (playerBoard.board[lastX][nextY] === "empty" || typeof playerBoard.board[lastX][nextY] ==="object"){
-                        if (attack(lastX,nextY, playerBoard) === 'hit'){
-                            nextY++
-                        } else {
-                            nextY = lastY-1;
-                            nextTurn = 'horizontalMinus';
-                        }
-                    } else if (playerBoard.board[lastX][lastY-1] === "empty" || typeof playerBoard.board[lastX][lastY - 1] ==="object"){
-                        if (attack(lastX,lastY-1, playerBoard) === 'hit'){
-                            nextY = lastY-2;
-                            nextTurn='horizontalMinus';
-                        } else {
-                            inHit = false;
-                        }
-                    }
-                } else if (nextTurn === 'horizontalMinus'){
-                    if (playerBoard.board[lastX][nextY] === "empty" || typeof playerBoard.board[lastX][nextY] ==="object"){
-                        if (attack(lastX,nextY, playerBoard) === 'hit'){
-                            nextY--
-                        } else {
-                            inHit = false;
-                        }
-                    }
+            let x= Math.floor(Math.random() * 10);
+            let y= Math.floor(Math.random() * 10);
+            if (playerBoard.board[x][y] === "empty" || typeof playerBoard.board[x][y] ==="object" ){
+                attack(x,y, playerBoard);
                 compTurn = false;
-            } else {*/
-                let x= Math.floor(Math.random() * 10);
-                let y= Math.floor(Math.random() * 10);
-                if (playerBoard.board[x][y] === "empty" || typeof playerBoard.board[x][y] ==="object" ){
-                    if(attack(x,y, playerBoard) === 'hit'){
-                        inHit = true;
-                        lastX = x;
-                        lastY = y;
-                        nextX = x+1;
-                        nextY = y+1;
-                        nextTurn = 'verticalUp'
-                    } else {
-                        inHit = false;
-                    };
-                    compTurn = false;
-                    //}
-                //}
             }
         }
     }
